@@ -9,6 +9,7 @@ import io
 from fastapi.responses import StreamingResponse
 import cv2
 import requests
+from fastapi.staticfiles import StaticFiles
 from ocr import image_want_from_text
 from dotenv import load_dotenv
 
@@ -24,6 +25,7 @@ app.add_middleware(
     allow_headers=["*"]
 )
 unsplash_access_key=os.getenv("ACCESS_KEY")
+app.mount("/static", StaticFiles(directory="static/dist", html=True), name="static")
 
 @app.get("/")
 def read_root():
@@ -54,3 +56,8 @@ def getFoodImage(food:str):
     if image_resp.status_code != 200:
         return {"error": "Failed to fetch image"}
     return StreamingResponse(io.BytesIO(image_resp.content),media_type="image/jpeg")
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))  # Render assigns this dynamically
+    uvicorn.run("app:app", host="0.0.0.0", port=port)
