@@ -87,7 +87,7 @@ export default function FoodItemsGrid({ items }) {
         (async () => {
           try {
             // backend endpoint that serves images: [`getFoodImage`](backend/app.py)
-            const resp = await fetch(`http://localhost:8000/image?food=${encodeURIComponent(item.name)}`);
+            const resp = await fetch(`https://receiptrift-backend-1.onrender.com/image?food=${encodeURIComponent(item.name)}`);
             if (!isMounted) return;
             if (!resp.ok) {
               // Try to read JSON error for debugging (optional)
