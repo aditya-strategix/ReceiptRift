@@ -58,7 +58,7 @@ export default function BillSplitter() {
       // backend expects field name "image" as defined in [`uploadReceipt`](backend/app.py)
       formData.append('image', file);
 
-      const resp = await fetch('http://receiptrift-backend.onrender.com/upload', {
+      const resp = await fetch('https://receiptrift-backend.onrender.com/upload', {
         method: 'POST',
         body: formData,
       });
